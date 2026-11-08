@@ -76,3 +76,13 @@
 - [x] Loading, empty, error, workspace, dashboard, history, and settings copy is professional and useful for real user input; sample actions are framed as optional examples rather than the product’s primary purpose.
 - [x] Existing Clocked endpoints, server-side key handling, uploads, security boundaries, environment variables, API contracts, and core workflows remain unchanged; no fabricated analysis is added.
 - [x] Typecheck, production build, real sample-input smoke tests for all three tools, secret-safety checks, GitHub source/README review, checkpoint, and publication are completed.
+
+
+## 12. Premium visual system and interaction polish
+- [x] The landing page presents TrustLens AI with a premium dark AI-intelligence aesthetic: layered depth, restrained glassmorphism, soft gradients, readable typography, generous spacing, and cohesive visual hierarchy.
+- [x] The hero clearly communicates “TrustLens AI” and “Understand information before you trust or act,” with an original abstract central visual connecting verification/evidence, safety/privacy, and document comparison.
+- [x] Landing-page storytelling uses purposeful reveal, hover, or depth interactions that are smooth, performant, not distracting, and respectful of reduced-motion preferences.
+- [x] TrustLens, ScamShield, and DocuMatch workspaces and reports share the design system while retaining distinct blue, violet, and teal identities, premium input areas, readable progress states, and structured results.
+- [x] Responsive desktop and mobile layouts remain aligned, readable, accessible, and fast, with professional empty/error/loading states and clear interaction feedback.
+- [x] Existing Clocked integrations, workflows, routes, uploads, security, environment handling, and report data remain unchanged.
+- [x] All three tools pass live and sample smoke tests, production build checks, visual preview review, secret-safety checks, checkpointing, and publication.

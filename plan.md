@@ -89,3 +89,8 @@ Keep document inputs, Clocked compare requests, response mapping, uploads, and a
 ## Product professionalism and report consistency pass — 2026-11-08
 
 Preserve all existing Clocked SDK calls, server-only secrets, upload handling, demo/sample fixture behavior, API contracts, and tool workflows. Update presentation only: replace user-facing demo-mode framing with professional product language, retain sample reports as optional onboarding, and make the three report surfaces consistently explain what was analyzed, the overall result, key findings, why they matter, and recommended next steps. Live reports must remain visibly identified as Clocked-backed; sample reports may be identified as sample content without implying real user analysis.
+
+
+## Premium visual system upgrade — 2026-11-08
+
+Keep the current dark intelligence visual language and all application behavior. Upgrade the experience through the existing React and CSS layers only: strengthen layered glass surfaces, soft depth lighting, card hierarchy, hero network storytelling, workspace/report panels, button feedback, and responsive spacing. Add lightweight IntersectionObserver reveal wrappers for landing sections and tool cards, restrained hover depth on cards, subtle ambient motion on the hero network, and a prefers-reduced-motion fallback. Do not add external imagery or change the Clocked adapter, API, routes, uploads, or security boundaries.
