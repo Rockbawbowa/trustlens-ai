@@ -84,3 +84,8 @@ Existing APIs, server files, Clocked calls, environment variables, uploads, and 
 ## DocuMatch report presentation refinement — 2026-11-08
 
 Keep document inputs, Clocked compare requests, response mapping, uploads, and all non-DocuMatch workflows unchanged. Refine only the DocuMatch result surface so it reads like a professional review assistant. Derive the headline, plain-language summary, key changes, grouping labels, practical significance, and recommendation from the existing `summary`, `sections`, `changes`, `relation`, `conflict`, `priority`, and passage text fields. Never manufacture a difference or claim a category when the returned text does not support it. Clearly label Document A as Original and Document B as Updated throughout.
+
+
+## Product professionalism and report consistency pass — 2026-11-08
+
+Preserve all existing Clocked SDK calls, server-only secrets, upload handling, demo/sample fixture behavior, API contracts, and tool workflows. Update presentation only: replace user-facing demo-mode framing with professional product language, retain sample reports as optional onboarding, and make the three report surfaces consistently explain what was analyzed, the overall result, key findings, why they matter, and recommended next steps. Live reports must remain visibly identified as Clocked-backed; sample reports may be identified as sample content without implying real user analysis.

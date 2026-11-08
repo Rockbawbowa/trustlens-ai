@@ -64,7 +64,7 @@ export async function POST(request: Request) {
   } catch (error) {
     const code = error instanceof Error ? error.message : 'UNKNOWN_ERROR'
     const responses: Record<string, { message: string; status: number }> = {
-      CLOCKED_NOT_CONFIGURED: { message: 'Real Clocked analysis is not configured yet. Add CLOCKED_API_KEY on the server, or open a demo report.', status: 503 },
+      CLOCKED_NOT_CONFIGURED: { message: 'Real Clocked analysis is not configured yet. Add CLOCKED_API_KEY on the server, or open a sample report.', status: 503 },
       CLOCKED_REQUEST_FAILED: { message: 'Clocked could not complete this analysis. Please try again shortly.', status: 502 },
       FILE_TOO_LARGE: { message: 'This file is larger than the 10 MB upload limit.', status: 413 },
       UNSUPPORTED_FILE: { message: 'This file format cannot be processed. Use PDF, DOCX, TXT, CSV, JSON, PNG, JPG, or WEBP.', status: 415 },

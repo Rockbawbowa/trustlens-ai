@@ -188,3 +188,11 @@ a { color: inherit; text-decoration: none; }
 .comparison-guidance-card h3 { margin: 8px 0 0; font-size: 15px; letter-spacing: -.02em; }
 .comparison-guidance-card p { margin: 9px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
 @media (max-width: 700px) { .key-change-header { flex-direction: column; }.key-change-badges { justify-content: flex-start; }.key-change-columns, .comparison-guidance-grid { grid-template-columns: 1fr; } }
+
+
+/* shared report scope */
+.analysis-scope { display: flex; align-items: center; gap: 16px; margin-top: 21px; padding: 13px 15px; background: rgba(255,255,255,.025); border: 1px solid var(--line); border-radius: 10px; }
+.analysis-scope-label { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; color: var(--blue); }
+.analysis-scope-label .card-eyebrow { color: var(--muted-2); }
+.analysis-scope p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+@media (max-width: 560px) { .analysis-scope { align-items: flex-start; flex-direction: column; gap: 8px; } }

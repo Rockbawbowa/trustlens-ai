@@ -58,7 +58,7 @@ const scamReport: ScamReport = {
   score: 78,
   privacy: [
     { label: 'Sensitive information request', detail: 'The message asks for an account identifier and a one-time passcode. Those details were not repeated in this report.', status: 'review' },
-    { label: 'Personal data exposure', detail: 'No real personal data was detected in the demo content.', status: 'clear' },
+    { label: 'Personal data exposure', detail: 'No personal data was detected in the analyzed content.', status: 'clear' },
     { label: 'Safe handling', detail: 'Potentially sensitive fields were masked in the analysis view.', status: 'protected' },
   ],
   patterns: [
