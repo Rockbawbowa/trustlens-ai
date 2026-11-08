@@ -2,7 +2,17 @@ node_modules/
 .next/
 out/
 *.tsbuildinfo
+
+# Local and secret environment files
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+
+# Local tooling and OS files
 .DS_Store
+.vscode/
+.idea/
+
+# Logs and generated reports
+*.log
+coverage/
