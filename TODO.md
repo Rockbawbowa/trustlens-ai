@@ -45,3 +45,13 @@
 - [ ] Shared interfaces cover profiles, analyses, analysis_files, and analysis_results with the requested fields and tool/status values.
 - [ ] The code is modular, typed, and easy to extend with Supabase authentication, database, and storage.
 - [ ] Route manifest, diagnostics, build checks, responsive layout checks, and a managed checkpoint are completed before handoff.
+
+
+## 9. Focused product-experience upgrade
+- [x] The landing page immediately explains what TrustLens AI does, who it is for, the problem it solves, and how TrustLens, ScamShield, and DocuMatch help users make better-informed decisions.
+- [x] Shared report presentation follows the understandable flow INPUT → ANALYSIS → FINDINGS → WHY IT MATTERS → NEXT STEPS, while preserving clear loading states and distinguishing actual Clocked results from demo examples.
+- [x] DocuMatch reports present an overall comparison summary, meaningful difference counts when available from the comparison output, side-by-side original/updated references, structured changes, truthful importance cues, plain-language context, and a Recommended Next Step section without inventing analysis.
+- [x] TrustLens reports organize actual returned output into verification status, key claims, supporting/conflicting evidence, uncertainty requiring further verification, and a concise review-next section without presenting truth as guaranteed.
+- [x] ScamShield reports organize actual returned output into risk level, suspicious patterns, privacy concerns, why the content deserves attention, and practical general next steps without declaring a definite scam unsupported by the integration.
+- [x] Existing uploads, Clocked endpoint usage, environment variables, demo behavior, and core workflows remain intact; no fake results or fake API calls are added.
+- [x] All three workflows pass typecheck/build and live smoke tests, the GitHub documentation remains accurate, and the improved version is ready for checkpoint and publication.

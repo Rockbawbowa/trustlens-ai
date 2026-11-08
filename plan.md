@@ -68,3 +68,14 @@ Electric signal blue `#6ea8ff`, used for primary actions, active navigation, and
 3. Wire demo CTAs and form actions to the API route; keep the report view typed and tool-aware.
 4. Install dependencies and run TypeScript diagnostics plus production build checks.
 5. Start the managed preview server, verify the route manifest and key page responses, then checkpoint the finished version.
+
+
+## Approved focused product-experience upgrade — 2026-11-08
+
+Preserve the existing TrustLens AI application architecture, live Clocked SDK adapter, endpoint usage, upload handling, demo mode, and core workflows. Improve only the product communication and report experience.
+
+The landing and workspace story will be clarified around “Understand information before you trust or act on it.” and the three connected lenses: examine claims and evidence, assess suspicious content and privacy concerns, and compare meaningful document changes. The existing dark intelligence visual system will remain, with stronger hierarchy and a consistent report flow: Input → Analysis → Findings → Why it matters → Next steps.
+
+TrustLens and ScamShield will use only fields already returned by the Analysis Engine to improve status, evidence, uncertainty, privacy, pattern, and next-step presentation. DocuMatch will gain clearer count/context labels, side-by-side references, structured change cards, and a review-next section based on actual comparison pairs and conflicts. Categories and importance cues will not be invented beyond the current returned relation/conflict logic.
+
+Existing APIs, server files, Clocked calls, environment variables, uploads, and demo behavior remain intact. Validation will include TypeScript, production build, route/API smoke tests for all three workflows, and a managed checkpoint before publication.
