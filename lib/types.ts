@@ -52,6 +52,7 @@ export interface ScamReport {
   privacy: PrivacyFinding[]
   patterns: ScamPattern[]
   nextSteps: string[]
+  whyFlagged?: string
 }
 
 export interface ComparisonSection {
@@ -79,6 +80,7 @@ export interface DocuMatchReport {
   }
   sections: ComparisonSection[]
   changes: ImportantChange[]
+  comparisonNote?: string
 }
 
 export type AnalysisResult = TrustReport | ScamReport | DocuMatchReport

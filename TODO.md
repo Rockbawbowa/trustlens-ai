@@ -34,10 +34,12 @@
 - [ ] Local/demo data keeps the app functional without Supabase or Clocked credentials.
 
 ## 7. Server-side intelligence architecture
-- [ ] A reusable server-side Analysis Engine dispatches the TrustLens, ScamShield, and DocuMatch workflows.
-- [ ] Clocked integration requests remain server-side behind `CLOCKED_API_KEY` and `CLOCKED_API_URL`; no secret is exposed in frontend code.
-- [ ] `/api/analyze` returns typed structured JSON, handles missing credentials via demo mode, and normalizes failures gracefully.
-- [ ] `.env.example` includes `CLOCKED_API_KEY`, `CLOCKED_API_URL`, `NEXT_PUBLIC_SUPABASE_URL`, and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- [x] A reusable server-side Analysis Engine dispatches the TrustLens, ScamShield, and DocuMatch workflows.
+- [x] Clocked integration requests remain server-side behind `CLOCKED_API_KEY`; the optional `CLOCKED_API_URL` overrides the SDK default `https://clocked.rezolve.ai/clocked`; no secret is exposed in frontend code.
+- [x] `/api/analyze` accepts JSON and multipart uploads, returns typed structured JSON, keeps demo reports available, and returns explicit errors for missing credentials, Clocked failures, unsupported files, empty input, and files over 10 MB instead of silently substituting a demo result.
+- [x] The adapter uses the official `clocked-sdk@0.7.0` for `grounding`, `pii`, `injection`, `script`, and `compare`, with server-side PDF, DOCX, and text extraction as needed.
+- [x] `.env.example` includes `CLOCKED_API_KEY`, `CLOCKED_API_URL`, `NEXT_PUBLIC_SUPABASE_URL`, and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- [x] Live synthetic checks completed for TrustLens claim verification, ScamShield suspicious-content/privacy analysis, and DocuMatch comparison; multipart TXT upload checks completed for all three.
 
 ## 8. Supabase-ready data architecture and delivery quality
 - [ ] Shared interfaces cover profiles, analyses, analysis_files, and analysis_results with the requested fields and tool/status values.
