@@ -272,22 +272,78 @@ function ScamReportView({ report, mode }: { report: ScamReport; mode?: 'demo' | 
 
 function inferChangeCategory(change: { title: string; detail: string }) {
   const text = `${change.title} ${change.detail}`.toLowerCase()
-  if (/(\$|€|£|price|cost|fee|budget|payment)/.test(text)) return 'Price / cost'
-  if (/(deadline|due|day|date|month|year|hour|window|schedule|expire)/.test(text)) return 'Date / deadline'
-  if (/(may|can|permission|access|allowed|permit|must|require|requirement|obligation)/.test(text)) return 'Permission / requirement'
+  if (/(\$|€|£|price|cost|fee|budget|payment|financial|revenue)/.test(text)) return 'Financial / price change'
+  if (/(deadline|due|day|date|month|year|hour|window|schedule|expire|retention)/.test(text)) return 'Dates / deadlines'
+  if (/(permission|access|allowed|permit|may enter|can |terms|obligation|consent)/.test(text)) return 'Permissions / terms'
+  if (/(must|require|requirement|should|deliver|provided|include)/.test(text)) return 'Requirements'
   return null
+}
+
+function comparisonProfile(report: DocuMatchReport) {
+  const conflicts = Math.max(report.summary.conflicts, report.sections.filter((section) => section.conflict).length)
+  const changes = Math.max(report.summary.attention, report.changes.length, report.sections.filter((section) => section.changed).length)
+  const matching = report.summary.matching
+  if (conflicts > 0) {
+    return {
+      heading: 'Documents contain important differences',
+      summary: `The comparison found ${conflicts} conflicting ${conflicts === 1 ? 'area' : 'areas'} and ${changes} meaningful ${changes === 1 ? 'change' : 'changes'}. The Original and Updated documents should not be treated as equivalent until the highlighted terms are reviewed.`,
+      tone: 'danger' as const,
+    }
+  }
+  if (changes > 0) {
+    return {
+      heading: 'Changes detected and require review',
+      summary: `The documents share ${matching} matching ${matching === 1 ? 'area' : 'areas'}, but the comparison also returned ${changes} meaningful ${changes === 1 ? 'change' : 'changes'} to review before relying on the Updated version.`,
+      tone: 'warning' as const,
+    }
+  }
+  return {
+    heading: 'Documents are largely consistent',
+    summary: `The comparison returned ${matching} matching ${matching === 1 ? 'area' : 'areas'} and no meaningful differences requiring attention. Confirm both documents were complete before treating them as equivalent.`,
+    tone: 'success' as const,
+  }
+}
+
+function splitComparisonDetail(detail: string) {
+  const parts = detail.split(' ↔ ')
+  return { original: parts[0] || 'No Original passage returned.', updated: parts.slice(1).join(' ↔ ') || 'No Updated passage returned.' }
+}
+
+function comparisonWhyItMatters(report: DocuMatchReport) {
+  if (report.summary.conflicts > 0) return 'A conflict means the two versions communicate materially different terms. Resolve the discrepancy against the governing agreement, policy, or source document before accepting the Updated version.'
+  if (report.changes.length > 0) return 'Meaningful changes can alter timing, obligations, cost, access, or deliverables even when the documents share most of their structure. Review each highlighted pair in context.'
+  return 'A consistent comparison is useful context, but it is not proof that either document is complete, current, or valid for your situation.'
 }
 
 function recommendedComparisonStep(report: DocuMatchReport) {
   const priority = report.changes.find((change) => change.priority === 'high') || report.changes.find((change) => change.priority === 'medium')
-  if (priority) return `Review “${priority.title}” against the original agreement or requirement before accepting the updated document.`
-  if (report.changes.length) return 'Review the listed changes in context and confirm that each update is intentional before relying on the revised document.'
-  return 'No meaningful changes were returned. Confirm both documents were complete before treating them as equivalent.'
+  if (priority) return `Review “${priority.title}” against the Original agreement or requirement before accepting the Updated document.`
+  if (report.changes.length) return 'Review the listed changes in context and confirm that each update is intentional before relying on the Updated document.'
+  return 'Confirm both documents were complete and current before treating them as equivalent.'
+}
+
+function changeReviewGuidance(change: DocuMatchReport['changes'][number], category: string | null, section?: DocuMatchReport['sections'][number]) {
+  if (section?.conflict || change.priority === 'high') return 'This change was prioritized for close review. Confirm which wording governs before accepting the Updated document.'
+  if (category === 'Dates / deadlines') return 'Review the timing-related wording because it may change a deadline, service window, or retention period.'
+  if (category === 'Financial / price change') return 'Review the financial wording against the agreed amount, budget, or payment terms before proceeding.'
+  if (category === 'Permissions / terms') return 'Review the access or terms wording to confirm what each version allows, requires, or limits.'
+  if (category === 'Requirements') return 'Review the requirement or deliverable wording to confirm the Updated version reflects the intended obligation.'
+  return 'Review this changed passage in context and confirm that the Updated wording is intentional.'
+}
+
+function KeyChangeCard({ change, section, index }: { change: DocuMatchReport['changes'][number]; section?: DocuMatchReport['sections'][number]; index: number }) {
+  const fallback = splitComparisonDetail(change.detail)
+  const original = section?.documentA || fallback.original
+  const updated = section?.documentB || fallback.updated
+  const category = inferChangeCategory(change)
+  return <article className="key-change-card"><div className="key-change-header"><div><span className="card-eyebrow">KEY CHANGE 0{index + 1}</span><h3>{change.title}</h3></div><div className="key-change-badges"><StatusBadge label={`${change.priority[0].toUpperCase()}${change.priority.slice(1)} priority`} tone={change.priority === 'high' ? 'danger' : change.priority === 'medium' ? 'warning' : 'neutral'} />{category && <span className="change-category">Text-supported: {category}</span>}</div></div><div className="key-change-columns"><div><span className="comparison-source-label">DOCUMENT A / ORIGINAL</span><p>{original}</p></div><div><span className="comparison-source-label">DOCUMENT B / UPDATED</span><p>{updated}</p></div></div><div className="key-change-meaning"><Info size={14} /><div><strong>Why this may matter</strong><p>{changeReviewGuidance(change, category, section)}</p></div></div></article>
 }
 
 function DocuMatchReportView({ report, mode }: { report: DocuMatchReport; mode?: 'demo' | 'clocked' }) {
+  const profile = comparisonProfile(report)
   const stats = [['Matching information', report.summary.matching, 'matching pairs', 'success'], ['New information', report.summary.newInformation, 'new or unrelated pairs', 'blue'], ['Conflicting information', report.summary.conflicts, 'conflicts', 'danger'], ['Meaningful changes', report.summary.attention, 'changes to review', 'warning']] as const
-  return <div><ReportHeader eyebrow="DOCUMATCH / COMPARISON COMPLETE" icon={FileDiff} iconTone="blue" title={report.title} assessment="COMPARISON COMPLETE" copy={report.comparisonNote || 'The two documents share a common structure, with a small set of meaningful changes to review before you treat them as equivalent.'} badgeTone="blue" mode={mode} /><ReportFlow /><div className="summary-card-grid">{stats.map(([label, value, unit, tone]) => <div className="comparison-stat" key={label}><span className={`stat-accent ${tone}`} /><span className="card-eyebrow">{label}</span><strong>{value}</strong><small>{unit}</small></div>)}</div><div className="comparison-layout"><section className="comparison-panel"><div className="comparison-panel-heading"><div><SectionLabel icon={FileDiff}>Findings</SectionLabel><h2>Document A <span>vs</span> Document B</h2></div><div className="comparison-legend"><span><i className="legend-match" />Match</span><span><i className="legend-change" />Changed</span><span><i className="legend-conflict" />Conflict</span></div></div><div className="comparison-head"><span>DOCUMENT A / ORIGINAL</span><span>DOCUMENT B / UPDATED</span></div><div className="comparison-sections">{report.sections.map((section) => <div className={`comparison-row ${section.changed ? 'row-changed' : ''} ${section.conflict ? 'row-conflict' : ''}`} key={section.label}><span className="comparison-label">{section.label}</span><div><p>{section.documentA}</p></div><div><p>{section.documentB}</p></div></div>)}</div></section><aside className="important-changes"><div className="report-section-heading"><div><SectionLabel icon={AlertTriangle}>Why it matters</SectionLabel><h2>Prioritized for review.</h2></div><span>{report.changes.length} meaningful changes</span></div><div className="change-list">{report.changes.length ? report.changes.map((change, index) => { const category = inferChangeCategory(change); return <div className="change-item" key={`${change.title}-${index}`}><div className={`change-number ${change.priority}`}>0{index + 1}</div><div><div className="change-title"><strong>{change.title}</strong><span className={`priority-dot ${change.priority}`} /></div><div className="change-meta"><StatusBadge label={`${change.priority[0].toUpperCase()}${change.priority.slice(1)} priority`} tone={change.priority === 'high' ? 'danger' : change.priority === 'medium' ? 'warning' : 'neutral'} />{category && <span>{category}</span>}</div><p>{change.detail}</p></div></div> }) : <div className="empty-change-state"><CheckCircle2 size={16} /><span>No meaningful changes were returned by the comparison.</span></div>}</div><div className="recommended-next-card"><span className="card-eyebrow">RECOMMENDED NEXT STEP</span><p>{recommendedComparisonStep(report)}</p></div></aside></div></div>
+  const changedSections = report.sections.filter((section) => section.changed || section.conflict)
+  return <div><ReportHeader eyebrow="DOCUMATCH / COMPARISON COMPLETE" icon={FileDiff} iconTone={profile.tone} title={report.title} assessment={profile.heading} copy={profile.summary} badgeTone={profile.tone === 'success' ? 'success' : profile.tone === 'danger' ? 'danger' : 'warning'} mode={mode} /><ReportFlow /><div className="summary-card-grid">{stats.map(([label, value, unit, tone]) => <div className="comparison-stat" key={label}><span className={`stat-accent ${tone}`} /><span className="card-eyebrow">{label}</span><strong>{value}</strong><small>{unit}</small></div>)}</div><section className="documatch-review-section"><section className="comparison-panel"><div className="comparison-panel-heading"><div><SectionLabel icon={FileDiff}>Original vs updated</SectionLabel><h2>See the returned comparison in context.</h2><p className="comparison-explainer">Document A is the Original reference. Document B is the Updated version being reviewed.</p></div><div className="comparison-legend"><span><i className="legend-match" />Match</span><span><i className="legend-change" />Changed</span><span><i className="legend-conflict" />Conflict</span></div></div><div className="comparison-head"><span>DOCUMENT A / ORIGINAL</span><span>DOCUMENT B / UPDATED</span></div><div className="comparison-sections">{report.sections.map((section) => <div className={`comparison-row ${section.changed ? 'row-changed' : ''} ${section.conflict ? 'row-conflict' : ''}`} key={section.label}><span className="comparison-label">{section.label}</span><div><p>{section.documentA}</p></div><div><p>{section.documentB}</p></div></div>)}</div></section></section><section className="key-changes-section"><div className="report-section-heading"><div><SectionLabel icon={AlertTriangle}>Key changes</SectionLabel><h2>What changed between the documents.</h2><p className="section-supporting-copy">Each card keeps the Original and Updated wording together so the practical difference is easy to review.</p></div><span>{report.changes.length} returned changes</span></div><div className="key-change-list">{report.changes.length ? report.changes.map((change, index) => <KeyChangeCard key={`${change.title}-${index}`} change={change} section={changedSections[index]} index={index} />) : <div className="empty-change-state"><CheckCircle2 size={16} /><span>No meaningful changes were returned by the comparison.</span></div>}</div></section><div className="comparison-guidance-grid"><section className="report-side-card comparison-guidance-card"><span className="card-eyebrow">WHY THIS MATTERS</span><h3>{profile.heading}</h3><p>{comparisonWhyItMatters(report)}</p><div className="side-note-line"><Info size={14} /> The explanation is based on the returned comparison relationships and passages.</div></section><section className="recommended-next-card comparison-guidance-card"><span className="card-eyebrow">RECOMMENDED NEXT STEP</span><h3>Review before you accept the change.</h3><p>{recommendedComparisonStep(report)}</p></section></div></div>
 }
 
 function HistoryView({ analyses, onOpenReport }: { analyses: AnalysisRecord[]; onOpenReport: (analysis: AnalysisRecord) => void }) {

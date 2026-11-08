@@ -160,3 +160,31 @@ a { color: inherit; text-decoration: none; }
 .recommended-next-card p { margin: 8px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
 .empty-change-state { display: flex; gap: 8px; align-items: center; padding: 17px 14px; color: var(--green); font-size: 10px; line-height: 1.45; }
 @media (max-width: 560px) { .report-flow { align-items: flex-start; padding: 9px 10px; }.report-flow-step:not(:last-child)::after { margin: 0 9px; }.report-flow-step strong { font-size: 8px; } }
+
+
+/* DocuMatch professional comparison report */
+.documatch-review-section { margin-top: 40px; }
+.comparison-explainer { max-width: 620px; margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.key-changes-section { margin-top: 38px; }
+.section-supporting-copy { max-width: 620px; margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.key-change-list { display: grid; gap: 12px; margin-top: 20px; }
+.key-change-card { padding: 18px; background: linear-gradient(145deg, rgba(14,22,37,.78), rgba(18,29,47,.52)); border: 1px solid var(--line); border-radius: 12px; }
+.key-change-card:hover { border-color: var(--line-strong); }
+.key-change-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.key-change-header h3 { max-width: 700px; margin: 7px 0 0; font-size: 14px; line-height: 1.4; letter-spacing: -.02em; }
+.key-change-badges { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.change-category { color: var(--blue); border: 1px solid rgba(110,168,255,.18); background: rgba(110,168,255,.06); border-radius: 100px; padding: 5px 9px; font-size: 9px; font-weight: 650; white-space: nowrap; }
+.key-change-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 17px; }
+.key-change-columns > div { min-width: 0; padding: 13px; background: rgba(255,255,255,.025); border: 1px solid var(--line); border-radius: 9px; }
+.key-change-columns > div:last-child { background: rgba(110,168,255,.045); border-color: rgba(110,168,255,.14); }
+.comparison-source-label { display: block; color: var(--muted-2); font-size: 9px; font-weight: 750; letter-spacing: .1em; }
+.key-change-columns p { margin: 9px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.key-change-meaning { display: flex; gap: 8px; align-items: flex-start; margin-top: 12px; padding: 11px 12px; color: var(--amber); background: rgba(246,189,105,.055); border: 1px solid rgba(246,189,105,.13); border-radius: 8px; }
+.key-change-meaning svg { flex: 0 0 auto; margin-top: 2px; }
+.key-change-meaning strong { color: var(--text); font-size: 10px; }
+.key-change-meaning p { margin: 4px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.comparison-guidance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+.comparison-guidance-card { min-height: 150px; }
+.comparison-guidance-card h3 { margin: 8px 0 0; font-size: 15px; letter-spacing: -.02em; }
+.comparison-guidance-card p { margin: 9px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+@media (max-width: 700px) { .key-change-header { flex-direction: column; }.key-change-badges { justify-content: flex-start; }.key-change-columns, .comparison-guidance-grid { grid-template-columns: 1fr; } }

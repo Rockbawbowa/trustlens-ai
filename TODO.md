@@ -55,3 +55,13 @@
 - [x] ScamShield reports organize actual returned output into risk level, suspicious patterns, privacy concerns, why the content deserves attention, and practical general next steps without declaring a definite scam unsupported by the integration.
 - [x] Existing uploads, Clocked endpoint usage, environment variables, demo behavior, and core workflows remain intact; no fake results or fake API calls are added.
 - [x] All three workflows pass typecheck/build and live smoke tests, the GitHub documentation remains accurate, and the improved version is ready for checkpoint and publication.
+
+
+## 10. DocuMatch professional comparison report
+- [x] The completed DocuMatch report presents a result-dependent heading such as documents containing important differences, documents being largely consistent, or changes detected and requiring review.
+- [x] The report explains in plain language what the actual comparison found instead of presenting only a one-word relation or generic status.
+- [x] A structured Key Changes section uses actual returned changes and, where available, shows the change title, Document A / Original passage, Document B / Updated passage, and why the change may matter.
+- [x] Changes are grouped or labeled by supported type, including dates/deadlines, financial or price changes, requirements, permissions/terms, or other important changes only when the returned text supports that label.
+- [x] The report includes a Why This Matters section and a neutral Recommended Next Step based on the actual result.
+- [x] Original and Updated document labels remain clear in the side-by-side comparison and each key-change card.
+- [x] The Clocked compare request, adapter, uploads, API contract, demo behavior, and all other application functionality remain unchanged.

@@ -79,3 +79,8 @@ The landing and workspace story will be clarified around “Understand informati
 TrustLens and ScamShield will use only fields already returned by the Analysis Engine to improve status, evidence, uncertainty, privacy, pattern, and next-step presentation. DocuMatch will gain clearer count/context labels, side-by-side references, structured change cards, and a review-next section based on actual comparison pairs and conflicts. Categories and importance cues will not be invented beyond the current returned relation/conflict logic.
 
 Existing APIs, server files, Clocked calls, environment variables, uploads, and demo behavior remain intact. Validation will include TypeScript, production build, route/API smoke tests for all three workflows, and a managed checkpoint before publication.
+
+
+## DocuMatch report presentation refinement — 2026-11-08
+
+Keep document inputs, Clocked compare requests, response mapping, uploads, and all non-DocuMatch workflows unchanged. Refine only the DocuMatch result surface so it reads like a professional review assistant. Derive the headline, plain-language summary, key changes, grouping labels, practical significance, and recommendation from the existing `summary`, `sections`, `changes`, `relation`, `conflict`, `priority`, and passage text fields. Never manufacture a difference or claim a category when the returned text does not support it. Clearly label Document A as Original and Document B as Updated throughout.
